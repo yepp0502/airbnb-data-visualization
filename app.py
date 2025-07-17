@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-df = pd.read_csv('listings.csv.gz')
+df = pd.read_csv('listings.csv')
 
 # Clean the 'price' column: remove $ and commas
 df['price'] = df['price'].replace('[\$,]', '', regex=True).astype(float)
