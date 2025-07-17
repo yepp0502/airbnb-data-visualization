@@ -5,7 +5,7 @@ import altair as alt
 df = pd.read_csv('listings.csv')
 
 # Clean the 'price' column: remove $ and commas
-df['price'] = df['price'].str.replace('[\$,]', '', regex=True)
+df['price'] = df['price'].replace('[\$,]', '', regex=True).astype(float)
 df['price'] = pd.to_numeric(df['price'], errors='coerce')
 df = df[df['price'].notna()]
 
