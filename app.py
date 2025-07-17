@@ -135,8 +135,7 @@ df_melted = df_filtered.melt(
 
 # Create the bar chart
 st.subheader("Review Categories Based on Id")
-name = df_filtered['name']
-st.write("Name: ", name)
+st.write("Name: ", df_filtered['name'].iloc[0])
 st.write("Id: ", selected_id)
 
 bar = alt.Chart(df_melted).mark_bar().encode(
