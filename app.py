@@ -21,7 +21,7 @@ max_price = int(df['price'].max())
 values = st.sidebar.slider("Select a price range", min_price, max_price, (min_price, max_price))
 st.sidebar.write("Selected Price Range:", values)
 
-option = df['neighbourhood_cleansed'].unique().tolist()
+option = df['neighbourhood_group'].unique().tolist()
 option.sort()
 
 selection = st.sidebar.selectbox(
@@ -38,12 +38,12 @@ st.subheader("Scatter Plot: Price vs Reviews per Month")
 
 filtered_df = df[(df['price'] >= values[0]) & (df['price'] <= values[1])]
 if selection:
-  filtered_df = filtered_df[filtered_df['neighbourhood_cleansed'] == selection]
+  filtered_df = filtered_df[filtered_df['neighbourhood_group'] == selection]
 
 scatter = alt.Chart(filtered_df).mark_point(size=60).encode(
     x="price",
     y="reviews_per_month",
-    color="neighbourhood_cleansed",
+    color="neighbourhood_group",
     tooltip=["name", "price", "reviews_per_month"]
 ).interactive()
 
@@ -95,9 +95,9 @@ scatter = alt.Chart(df_filtered).mark_point(size=60, opacity=0.7).encode(
 
 # Boxplot: Review Scores Value by Neighbourhood (filtered by brush)
 boxplot = alt.Chart(df_filtered).mark_boxplot().encode(
-    x=alt.X('neighbourhood_cleansed:N', title='Neighbourhood'),
+    x=alt.X('neighbourhood_group:N', title='Neighbourhood'),
     y=alt.Y('review_scores_value:Q', title='Review Scores Value'),
-    color=alt.Color('neighbourhood_cleansed:N', legend=None)
+    color=alt.Color('neighbourhood_group:N', legend=None)
 ).transform_filter(
     brush
 ).properties(
